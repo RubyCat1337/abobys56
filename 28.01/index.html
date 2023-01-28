@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // Создает переменная url, которая хранит в себе ссылку на API. 
+        const url = 'https://api.nasa.gov/planetary/apod?api_key=Jur1b1xkKOkenNuro0eVFrchFmdM932ZhH6bPT91';
+        // fetch - отправляет сетевые запросы на сервер — может как получать, так и отправлять данные. В нашем случае он получает данные NASA API.
+        // Так как, запрос на сервер занимает время, в таком случае нам нужно чтобы код выполнился уже после полученных данных( в данном случае, порядок кода не имеет привязке по времени).
+        // then это то что помогает в данной ситуации, он ждет пока слева от него код выполниться  и только тогда начинает сам выполнять свой код.
+        const data = fetch(url)
+        .then( (response) => response.json() ) 
+        .then( (data) => {
+            
+            // Здесь ваш код
+
+            // cоздание елементов (header, descriptions, img,date)
+            const header = document.createElement("h2");
+            const descriptions = document.createElement("p");
+            const img = document.createElement("img");
+            const date = document.createElement("h4");
+            // Задаем объектам свойства
+            header.innerHTML = data["header"];
+            descriptions.innerHTML = data["descriptions"];
+            img.src = data["hdurl"];
+            date.innerHTML = data["date"];
+            // добавляем все объекты в body
+            document.body.append(header);
+            document.body.append(date);
+            document.body.append(descriptions);
+            document.body.append(img);
+            
+
+
+        } )
+    </script>
+</body>
+</html>
